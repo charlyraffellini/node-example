@@ -11,7 +11,15 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.13.2",
-    "express": "^4.13.1"
+    "express": "^4.13.1",
+    "include": "^0.1.2",
+    "lodash": "^3.10.1",
+    "node-uuid": "^1.4.3"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "mocha": "^2.3.0",
+    "should": "^7.1.0",
+    "supertest": "^1.1.0"
+  }
 }
