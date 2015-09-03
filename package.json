@@ -11,13 +11,20 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.13.2",
+    "coffee-script": "^1.9.3",
     "express": "^4.13.1",
     "include": "^0.1.2",
+    "jade": "^1.11.0",
     "lodash": "^3.10.1",
     "node-uuid": "^1.4.3"
   },
   "private": true,
   "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-coffee": "^0.13.0",
+    "grunt-mocha-test": "^0.12.7",
+    "grunt-nodemon": "^0.4.0",
+    "load-grunt-tasks": "^3.2.0",
     "mocha": "^2.3.0",
     "should": "^7.1.0",
     "supertest": "^1.1.0"

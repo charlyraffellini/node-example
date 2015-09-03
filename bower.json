@@ -1,0 +1,10 @@
+{
+  "name": "node-exapmle",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "angularjs#~1.4.5",
+    "bootstrap": "~3.3.5",
+    "ng-table": "~0.8.3",
+    "react": "~0.13.3"
+  }
+}

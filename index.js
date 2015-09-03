@@ -8,6 +8,8 @@ app.use(function (req, res, next) {
     next();
 });
 
+console.log express.static(__dirname + '/bower_components')
+app.use('/bower_components',  express.static(__dirname + '/bower_components'))
 // configure app to use bodyParser()
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

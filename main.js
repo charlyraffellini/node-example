@@ -1,3 +1,3 @@
 require("coffee-script/register");
 
-require("./src/server.coffee");
+require("./server.coffee");
