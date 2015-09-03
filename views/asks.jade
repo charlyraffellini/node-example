@@ -1,0 +1,8 @@
+table.table.ng-table-responsive(ng-table='tableParams', show-filter='true')
+  tr(ng-repeat='ask in $data', ng-class="{ 'emphasis': ask.price > 500 }")
+    //td(width='30', style='text-align: left', header="'ng-table/headers/checkbox.html'")
+    //  input(type='checkbox', ng-model='checkboxes.items[user.id]')
+    //td(data-title="'Name'", filter="{ 'name': 'select' }", filter-data='names($column)')
+    //  | {{user.name}}
+    td(data-title="'Price'", sortable="'price'")
+      | {{ask.price}}

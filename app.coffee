@@ -9,6 +9,8 @@ app.use (req, res, next) ->
   next()
 
 app.use('/bower_components',  express.static(__dirname + '/bower_components'))
+app.use('/scripts',  express.static(__dirname + '/scripts'))
+app.set('views', './views');
 
 # configure app to use bodyParser()
 require('./config/bodyParser.config')(app)
@@ -17,6 +19,10 @@ require('./config/bodyParser.config')(app)
 
 # register our routes
 app.get '/', (req, res) -> res.render 'index'
+app.get '/views/:view', (req, res) ->
+  view = req.param('view')
+  res.render view
+
 app.use '/api', require('./routes/apiRoutes')
 
 module.exports.getApp = app

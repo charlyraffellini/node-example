@@ -14,6 +14,12 @@ module.exports = (grunt) ->
   #Config
   #------
   grunt.initConfig
+    concurrent:
+      dev:
+        tasks: ["watch", "nodemon"]
+        options:
+          logConcurrentOutput: true
+
     # Run server and watch for changes
     nodemon:
       dev:
@@ -27,21 +33,29 @@ module.exports = (grunt) ->
         reporter: "spec"
       src: ["test/**/*Spec.coffee"]
 
-		coffee:
-			options:
-				bare: true
-			compile:
-				files: [
-					expand: true,
-					src: '{,*/,**/}*.coffee',
-					dest: 'scripts/dist',
-					ext: '.js'
-				]
+    coffee:
+      compile:
+        expand: true
+        cwd: 'scripts'
+        src: ['**/*.coffee']
+        dest: 'scripts/dist'
+        ext: '.js'
+        options:
+          bare: true
+          preserve_dirs: true
+
+    watch:
+      jade:
+        files: ['**/*.jade']
+      coffee:
+        files: 'scripts/**/*.coffee'
+        tasks: ['coffee']
+
 
   #-----
   #Tasks
   #-----
   grunt.registerTask "default", "server"
 
-  grunt.registerTask "server", ["coffee", "nodemon"]
+  grunt.registerTask "server", ["coffee", "concurrent:dev"]
   grunt.registerTask "test", "mochaTest"
