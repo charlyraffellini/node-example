@@ -10,16 +10,11 @@ Per operare la applicazione fare lo seguente:
 
 `npm install -g grunt-cli`
 
-Per prendere la applicazione:
+Per prendere la applicazione: `grunt`
 
-`grunt`
+Per eseguire test di back-end: `grunt mochaTest`
 
-Per eseguire test di back-end:
-`grunt mochaTest`
-
-Per eseguire front-end test:
-
-`karma start`
+Per eseguire front-end test: `karma start`
 
 
 Il presente repository è utilizzato per la prova di programmazione da parte dei candidati per la posizione aperta di "sviluppatore full stack" presso Kopjra Srl.
