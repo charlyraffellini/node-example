@@ -1,17 +1,20 @@
-app.controller 'askController', ($scope, asks, api, NgTableParams, $filter) ->
+app.controller 'askController', ($scope, asks, NgTableParams, $filter, summaryMaker) ->
   $scope.asks = asks
+  $scope.summary = summaryMaker.makeSummary $scope.asks
+
   $scope.tableParams = new NgTableParams
     page: 1
     count: 10
   ,
-    total: $scope.asks.length
+    total: $scope.summary.length
     getData: ($defer, params) ->
       # use built-in angular filter
-      orderedData = if params.sorting() then $filter('orderBy')($scope.asks, params.orderBy()) else $scope.asks
+      orderedData = if params.sorting() then $filter('orderBy')($scope.summary, params.orderBy()) else $scope.summary
       params.total orderedData.length
       # set total for recalc pagination
-      $defer.resolve $scope.asks = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count())
+      $defer.resolve $scope.summary = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count())
 
   $scope.$watchCollection 'asks', (newValue, oldValue) ->
     if (newValue != oldValue)
+      $scope.summary = summaryMaker.makeSummary $scope.asks
       $scope.tableParams.reload();

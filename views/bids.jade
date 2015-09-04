@@ -1,1 +1,30 @@
-div Hello
+.col-xs-3
+  input.form-control(type='text', placeholder='quantità')
+  input.form-control(type='text', placeholder='prezzo')
+  button.btn.btn-default(type='button') Do it!
+.col-xs-9
+  .radio
+  label
+    input(type='radio', name='optionsRadios', value='option1', checked='')
+    | Proposta senza limite di prezzo, a prezzo di mercato
+  .radio
+  label
+    input(type='radio', name='optionsRadios', value='option2')
+    | Proposta senza limite di prezzo "esegui comunque" 
+  .radio.disabled
+  label
+    input(type='radio', name='optionsRadios', value='option3')
+    | Proposta con limite di prezzo
+    
+table.table.ng-table-responsive(ng-table='tableParams', show-filter='true')
+  tr(ng-repeat='bidSum in $data', ng-class="{ 'emphasis': bidSum.price > 4 }")
+    //td(width='30', style='text-align: left', header="'ng-table/headers/checkbox.html'")
+    //  input(type='checkbox', ng-model='checkboxes.items[user.id]')
+    //td(data-title="'Name'", filter="{ 'name': 'select' }", filter-data='names($column)')
+    //  | {{user.name}}
+    td(data-title="'Numero Di Proposte'")
+      | {{bidSum.numeroDiProposte}}
+    td(data-title="'Quantita Di Titoli'")
+      | {{bidSum.quantitaDiTitoli}}
+    td(data-title="'Price'", sortable="'price'")
+      | {{bidSum.price}}
