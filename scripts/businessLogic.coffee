@@ -20,11 +20,13 @@ app.factory "summaryMaker", () ->
 
   new SummaryMaker
 
+app.factory "USER_ID", ->
+  $get: -> window.USER_ID
 
-app.factory 'propostaConLimiteDiPrezzo', (USER_ID) ->
+app.factory 'PropostaConLimiteDiPrezzo', (USER_ID) ->
   class PropostaConLimiteDiPrezzo
     constructor: (@service) ->
 
-    perform: (elem) -> #elem = {qty,price}
+    perform: (elem) => #elem = {qty,price}
       elem.userid = USER_ID
-      service.create elem
+      @service.create elem

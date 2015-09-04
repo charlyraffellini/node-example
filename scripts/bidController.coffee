@@ -1,7 +1,12 @@
 "use strict"
-app.controller 'bidController', ($scope, bids, NgTableParams, $filter, summaryMaker) ->
+app.controller 'bidController', ($scope, bids, NgTableParams, $filter, bidApi, summaryMaker, PropostaConLimiteDiPrezzo) ->
+  $scope.elem = {}
   $scope.bids = bids
   $scope.summary = summaryMaker.makeSummary $scope.bids
+  $scope.propostaConLimiteDiPrezzo = new PropostaConLimiteDiPrezzo(bidApi)
+
+  $scope.performProposta = ->
+    $scope.proposta.perform $scope.elem
 
   $scope.tableParams = new NgTableParams
     page: 1

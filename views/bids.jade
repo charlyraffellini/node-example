@@ -1,21 +1,21 @@
 .col-xs-3
-  input.form-control(type='text', placeholder='quantità')
-  input.form-control(type='text', placeholder='prezzo')
-  button.btn.btn-default(type='button') Do it!
+  input.form-control(type='text', placeholder='quantità', ng-model="elem.qyt")
+  input.form-control(type='text', placeholder='prezzo', ng-model="elem.price")
+  button.btn.btn-default(type='button', ng-click="performProposta()") Do it!
 .col-xs-9
   .radio
   label
-    input(type='radio', name='optionsRadios', value='option1', checked='')
+    input(type='radio', name='optionsRadios', ng-model="proposta", ng-value="")
     | Proposta senza limite di prezzo, a prezzo di mercato
   .radio
   label
-    input(type='radio', name='optionsRadios', value='option2')
+    input(type='radio', name='optionsRadios', ng-model="proposta", ng-value="")
     | Proposta senza limite di prezzo "esegui comunque" 
   .radio.disabled
   label
-    input(type='radio', name='optionsRadios', value='option3')
+    input(type='radio', name='optionsRadios', ng-model="proposta", ng-value="propostaConLimiteDiPrezzo")
     | Proposta con limite di prezzo
-    
+      
 table.table.ng-table-responsive(ng-table='tableParams', show-filter='true')
   tr(ng-repeat='bidSum in $data', ng-class="{ 'emphasis': bidSum.price > 4 }")
     //td(width='30', style='text-align: left', header="'ng-table/headers/checkbox.html'")

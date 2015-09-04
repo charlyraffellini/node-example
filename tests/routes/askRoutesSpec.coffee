@@ -1,22 +1,23 @@
 include = require 'include'
-app = include('app').getApp
+app = include('/app').getApp
 request = require 'supertest'
 express = require('express')
 
-bid = null
+ask = null
 
 describe 'Posting', ->
   beforeEach ->
-    bid =
+    ask =
       userId: 'an Id'
       qty: 1
       price: 1
 
-  it 'to /api/bid', (done) ->
-    request(app).post('/api/bid')
-    .send bid
+  it 'to /api/asks', (done) ->
+    request(app).post('/api/asks')
+    .send ask
     .expect(201)
     .end (err, res) ->
+      console.log res.body
       res.body.should.have.property('id').which.is.a.String()
       if err
         return done(err)

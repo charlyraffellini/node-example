@@ -1,6 +1,11 @@
-app.controller 'askController', ($scope, asks, NgTableParams, $filter, summaryMaker) ->
+app.controller 'askController', ($scope, asks, NgTableParams, $filter, askApi, summaryMaker, PropostaConLimiteDiPrezzo) ->
+  $scope.elem = {}
   $scope.asks = asks
   $scope.summary = summaryMaker.makeSummary $scope.asks
+  $scope.propostaConLimiteDiPrezzo = new PropostaConLimiteDiPrezzo(askApi)
+
+  $scope.performProposta = ->
+    $scope.proposta.perform $scope.elem
 
   $scope.tableParams = new NgTableParams
     page: 1
