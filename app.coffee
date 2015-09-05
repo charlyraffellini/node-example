@@ -1,5 +1,11 @@
+include = require 'include'
 express = require('express')
 app = express()
+
+uuid = require 'uuid'
+cookieParser = require 'cookie-parser'
+session = require 'express-session'
+passport = require 'passport'
 
 app.set('view engine', 'jade');
 
@@ -12,12 +18,19 @@ app.use('/bower_components',  express.static(__dirname + '/bower_components'))
 app.use('/scripts',  express.static(__dirname + '/scripts'))
 app.set('views', './views');
 
-# configure app to use bodyParser()
 require('./config/bodyParser.config')(app)
-# ROUTES DEFINITION
-# =============================================================================
 
-# register our routes
+app.use cookieParser()
+app.use session(secret: 'keyboard cat')
+app.use passport.initialize()
+app.use passport.session()
+app.use (req, res, next) ->
+  if(req.path == '/login' || req.isAuthenticated())
+    next()
+  else
+    res.redirect '/login'
+
+app.use include('routes/login')
 app.get '/', (req, res) -> res.render 'index'
 app.get '/views/:view', (req, res) ->
   view = req.param('view')

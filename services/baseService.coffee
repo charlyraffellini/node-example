@@ -3,12 +3,13 @@
 fs = require 'fs'
 uuid = require 'node-uuid'
 _ = require 'lodash'
+json = require 'comment-json'
 
 module.exports = class BaseService
   constructor: (path) ->
     if path?
       text = fs.readFileSync(path,'utf8')
-      @collection = JSON.parse text
+      @collection = json.parse text
     else
       @collection = []
 

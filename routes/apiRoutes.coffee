@@ -3,6 +3,7 @@ include = require 'include'
 
 asks = include 'services/asks'
 bids = include 'services/bids'
+users = include 'services/users'
 
 router.get '/asks', (req, res) ->
   allAsks = asks.getAll()
@@ -22,5 +23,8 @@ router.post '/bids', (req, res) ->
   bids.create bid
   res.status(201).send bid
 
+router.get '/user/me', (req, res) ->
+  user = users.get username: req.user.username
+  res.status(200).send user
 
 module.exports = router
