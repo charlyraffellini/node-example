@@ -20,10 +20,8 @@ app.factory "summaryMaker", () ->
 
   new SummaryMaker
 
-app.factory "USER_ID", ->
-  $get: -> window.USER_ID
-
 app.factory 'PropostaConLimiteDiPrezzo', (USER_ID) ->
+  console.log USER_ID
   class PropostaConLimiteDiPrezzo
     constructor: (@service) ->
 

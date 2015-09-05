@@ -1,1 +1,1 @@
-require('./app').getApp.listen 8080
+require('./app').getServer.listen 8080

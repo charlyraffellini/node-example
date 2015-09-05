@@ -3,8 +3,6 @@ express = require('express')
 app = express()
 
 uuid = require 'uuid'
-cookieParser = require 'cookie-parser'
-session = require 'express-session'
 passport = require 'passport'
 
 app.set('view engine', 'jade');
@@ -20,8 +18,8 @@ app.set('views', './views');
 
 require('./config/bodyParser.config')(app)
 
-app.use cookieParser()
-app.use session(secret: 'keyboard cat')
+app.use require('./config/session').cookieParser
+app.use require('./config/session').SessionMiddleware
 app.use passport.initialize()
 app.use passport.session()
 app.use (req, res, next) ->
@@ -38,4 +36,11 @@ app.get '/views/:view', (req, res) ->
 
 app.use '/api', require('./routes/apiRoutes')
 
-module.exports.getApp = app
+app.get '/constants.js', (req, res) -> res.send 200, """
+app.constant('USER',#{JSON.stringify(req.user)})
+app.constant('USER_ID','#{req.user.id}')
+"""
+
+server = require('http').Server(app)
+require('./config/socket.io').config(server)
+module.exports.getServer = server

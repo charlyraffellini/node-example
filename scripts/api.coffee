@@ -25,3 +25,10 @@ app.factory "bidApi", ($http, API_URL, BaseApi) ->
         @_extractData $http.post("#{API_URL}/bids", bid)
 
     new BidApi()
+
+app.factory "userApi", ($http, API_URL, BaseApi) ->
+    class BidApi extends BaseApi
+      get: ->
+        @_extractData $http.get("#{API_URL}/user/me")
+
+    new BidApi()

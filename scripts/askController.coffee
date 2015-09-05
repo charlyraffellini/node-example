@@ -1,4 +1,4 @@
-app.controller 'askController', ($scope, asks, NgTableParams, $filter, askApi, summaryMaker, PropostaConLimiteDiPrezzo) ->
+app.controller 'askController', ($scope, asks, NgTableParams, $filter, askApi, summaryMaker, PropostaConLimiteDiPrezzo, socket) ->
   $scope.elem = {}
   $scope.asks = asks
   $scope.summary = summaryMaker.makeSummary $scope.asks
@@ -23,3 +23,7 @@ app.controller 'askController', ($scope, asks, NgTableParams, $filter, askApi, s
     if (newValue != oldValue)
       $scope.summary = summaryMaker.makeSummary $scope.asks
       $scope.tableParams.reload();
+
+  socket.on('new-ask', (data) ->
+    newAsk = data
+    $scope.asks.push(newAsk))

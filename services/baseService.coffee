@@ -13,9 +13,9 @@ module.exports = class BaseService
     else
       @collection = []
 
-  create: (ask) ->
-    ask.id = uuid.v4()
-    @collection.push ask
+  create: (elem) ->
+    elem.id = uuid.v4()
+    @collection.push elem
 
   get: (example) ->
     _.find @collection, example
