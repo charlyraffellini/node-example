@@ -28,10 +28,10 @@ router.get '/user/me', (req, res) ->
   user = users.get username: req.user.username
   res.status(200).send user
 
-router.post '/conLimiteDiPrezzo/vendita/:userid', (req, res) ->
-  propostaConLimiteDiPrezzoController.performOffertaDiVendita(req.params.userid, req.body, res)
+router.post '/conLimiteDiPrezzo/vendita', (req, res) ->
+  propostaConLimiteDiPrezzoController.performOffertaDiVendita(req.user.id, req.body, res)
 
-router.post '/conLimiteDiPrezzo/aquisito/:userid', (req, res) ->
-  propostaConLimiteDiPrezzoController.performOffertaDiAquisito(req.params.userid, req.body, res)
+router.post '/conLimiteDiPrezzo/aquisito', (req, res) ->
+  propostaConLimiteDiPrezzoController.performOffertaDiAquisito(req.user.id, req.body, res)
 
 module.exports = router

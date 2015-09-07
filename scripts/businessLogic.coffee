@@ -20,12 +20,13 @@ app.factory "summaryMaker", () ->
 
   new SummaryMaker
 
-app.factory 'PropostaConLimiteDiPrezzo', (USER_ID) ->
-  console.log USER_ID
+app.factory 'PropostaConLimiteDiPrezzoDiVendita', (userApi, propostaConLimiteDiPrezzoDiVenditaApi) ->
   class PropostaConLimiteDiPrezzo
-    constructor: (@service) ->
-
     perform: (elem) => #elem = {qty,price}
+      userApi.get()
+      .then (user) ->
+        return window.alert 'Non ha disponibilità liquide' if(user.wallet.shares < elem.shares)
+        propostaConLimiteDiPrezzoDiVenditaApi.post(elem)
       #validate and send a post
       # elem.userid = USER_ID
       # @service.create elem

@@ -32,8 +32,13 @@ module.exports = class BaseService
     Promise.resolve user
 
   removeUserWillAsync: (userId) ->
-    @collection = _.remove @collection, (elem) -> elem.userid == userId
-    Promise.resolve()
+    removed = null
+    @collection = _.remove @collection, (elem) ->
+      res = elem.userid != userId
+      removed = elem if !res
+      res
+
+    Promise.resolve(removed)
 
   createAsync: (elem) ->
     @create elem

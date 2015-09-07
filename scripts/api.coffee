@@ -27,8 +27,15 @@ app.factory "bidApi", ($http, API_URL, BaseApi) ->
     new BidApi()
 
 app.factory "userApi", ($http, API_URL, BaseApi) ->
-    class BidApi extends BaseApi
+    class UserApi extends BaseApi
       get: ->
         @_extractData $http.get("#{API_URL}/user/me")
 
-    new BidApi()
+    new UserApi()
+
+app.factory "propostaConLimiteDiPrezzoDiVenditaApi", ($http, API_URL, BaseApi) ->
+  class PropostaConLimiteDiPrezzoDiVenditaApi extends BaseApi
+    post: (proposta) ->
+      @_extractData $http.post("#{API_URL}/conLimiteDiPrezzo/vendita", proposta)
+
+  new PropostaConLimiteDiPrezzoDiVenditaApi()

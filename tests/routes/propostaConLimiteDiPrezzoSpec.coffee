@@ -22,8 +22,8 @@ describe 'Posting', ->
   afterEach ->
     mockery.disable()
 
-  it 'POST /api/conLimiteDiPrezzo/vendita/:userid', (done) ->
-    request(app).post('/api/conLimiteDiPrezzo/vendita/1')
+  it 'POST /api/conLimiteDiPrezzo/vendita', (done) ->
+    request(app).post('/api/conLimiteDiPrezzo/vendita')
     .send {shares: 999, price: 1}
     .expect(201)
     .end (err, res) ->
@@ -34,8 +34,8 @@ describe 'Posting', ->
         return done(err)
       done()
 
-  it 'POST /api/conLimiteDiPrezzo/aquisito/:userid', (done) ->
-    request(app).post('/api/conLimiteDiPrezzo/aquisito/1')
+  it 'POST /api/conLimiteDiPrezzo/aquisito', (done) ->
+    request(app).post('/api/conLimiteDiPrezzo/aquisito')
     .send {shares: 999, price: 2}
     .expect(201)
     .end (err, res) ->
@@ -46,8 +46,8 @@ describe 'Posting', ->
         return done(err)
       done()
 
-  it 'POST /api/conLimiteDiPrezzo/vendita/:userid should fail if try to ofer more shares than the user have', (done) ->
-    request(app).post('/api/conLimiteDiPrezzo/vendita/1')
+  it 'POST /api/conLimiteDiPrezzo/vendita should fail if try to ofer more shares than the user have', (done) ->
+    request(app).post('/api/conLimiteDiPrezzo/vendita')
     .send {shares: 1001, price: 1}
     .expect(400)
     .end (err, res) ->
@@ -56,8 +56,8 @@ describe 'Posting', ->
         return done(err)
       done()
 
-  it 'POST /api/conLimiteDiPrezzo/aquisito/:userid should fail if try to ofer more cash than the user have', (done) ->
-    request(app).post('/api/conLimiteDiPrezzo/aquisito/1')
+  it 'POST /api/conLimiteDiPrezzo/aquisito should fail if try to ofer more cash than the user have', (done) ->
+    request(app).post('/api/conLimiteDiPrezzo/aquisito')
     .send {shares: 1001, price: 2}
     .expect(400)
     .end (err, res) ->

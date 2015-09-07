@@ -11,4 +11,10 @@ class BidService extends BaseService
     super bid
     include('config/socket.io').getIo()?.emit('new-bid', bid)
 
+  removeUserWillAsync: (userId) ->
+    super(userId)
+    .then (data) ->
+      include('config/socket.io').getIo()?.emit('removed-bid', data)
+      data
+
 module.exports = new BidService()

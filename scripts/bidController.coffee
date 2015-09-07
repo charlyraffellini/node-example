@@ -1,9 +1,9 @@
 "use strict"
-app.controller 'bidController', ($scope, bids, NgTableParams, $filter, bidApi, summaryMaker, PropostaConLimiteDiPrezzo, socket) ->
+app.controller 'bidController', ($scope, bids, NgTableParams, $filter, bidApi, summaryMaker, PropostaConLimiteDiPrezzoDiVendita, socket) ->
   $scope.elem = {}
   $scope.bids = bids
   $scope.summary = summaryMaker.makeSummary $scope.bids
-  $scope.propostaConLimiteDiPrezzo = new PropostaConLimiteDiPrezzo(bidApi)
+  $scope.propostaConLimiteDiPrezzo = new PropostaConLimiteDiPrezzoDiVendita()
 
   $scope.performProposta = ->
     $scope.proposta.perform $scope.elem
@@ -25,6 +25,12 @@ app.controller 'bidController', ($scope, bids, NgTableParams, $filter, bidApi, s
       $scope.summary = summaryMaker.makeSummary $scope.bids
       $scope.tableParams.reload();
 
-  socket.on('new-bid', (data) ->
+  socket.on 'new-bid', (data) ->
     newBid = data
-    $scope.bids.push(newBid))
+    $scope.bids.push(newBid)
+
+  socket.on 'removed-bid', (data) ->
+    removerdBid = data
+    if !!data
+      index = _.findLastIndex($scope.bids, (e) -> e.id == removerdBid.id)
+      _.pullAt($scope.bids, index)
