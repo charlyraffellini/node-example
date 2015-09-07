@@ -4,6 +4,7 @@ include = require 'include'
 asks = include 'services/asks'
 bids = include 'services/bids'
 users = include 'services/users'
+propostaConLimiteDiPrezzoController = include 'controllers/propostaConLimiteDiPrezzo'
 
 router.get '/asks', (req, res) ->
   allAsks = asks.getAll()
@@ -26,5 +27,11 @@ router.post '/bids', (req, res) ->
 router.get '/user/me', (req, res) ->
   user = users.get username: req.user.username
   res.status(200).send user
+
+router.post '/conLimiteDiPrezzo/vendita/:userid', (req, res) ->
+  propostaConLimiteDiPrezzoController.performOffertaDiVendita(req.params.userid, req.body, res)
+
+router.post '/conLimiteDiPrezzo/aquisito/:userid', (req, res) ->
+  propostaConLimiteDiPrezzoController.performOffertaDiAquisito(req.params.userid, req.body, res)
 
 module.exports = router

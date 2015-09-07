@@ -1,7 +1,7 @@
 include = require 'include'
-app = include('/app').getApp
 request = require 'supertest'
-express = require('express')
+express = require 'express'
+# mockery = require 'mockery'
 
 ask = null
 
@@ -11,13 +11,15 @@ describe 'Posting', ->
       userId: 'an Id'
       qty: 1
       price: 1
+    include("tests/specHelper").clearRequiresAndLogin()
 
   it 'to /api/asks', (done) ->
-    request(app).post('/api/asks')
+    app = include('app').getApp
+    request(app)
+    .post('/api/asks')
     .send ask
     .expect(201)
     .end (err, res) ->
-      console.log res.body
       res.body.should.have.property('id').which.is.a.String()
       if err
         return done(err)

@@ -1,5 +1,6 @@
 "use strict"
 
+Promise = require 'bluebird'
 fs = require 'fs'
 uuid = require 'node-uuid'
 _ = require 'lodash'
@@ -25,3 +26,15 @@ module.exports = class BaseService
 
   getAll: ->
     @collection
+
+  getByIdAsync: (id) ->
+    user = @getById id
+    Promise.resolve user
+
+  removeUserWillAsync: (userId) ->
+    @collection = _.remove @collection, (elem) -> elem.userid == userId
+    Promise.resolve()
+
+  createAsync: (elem) ->
+    @create elem
+    Promise.resolve elem

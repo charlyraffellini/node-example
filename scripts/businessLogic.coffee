@@ -26,5 +26,6 @@ app.factory 'PropostaConLimiteDiPrezzo', (USER_ID) ->
     constructor: (@service) ->
 
     perform: (elem) => #elem = {qty,price}
-      elem.userid = USER_ID
-      @service.create elem
+      #validate and send a post
+      # elem.userid = USER_ID
+      # @service.create elem

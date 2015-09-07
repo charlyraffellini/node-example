@@ -1,7 +1,7 @@
 include = require 'include'
-app = include('app').getApp
 request = require 'supertest'
-express = require('express')
+express = require 'express'
+mockery = require 'mockery'
 
 bid = null
 
@@ -11,8 +11,10 @@ describe 'Posting', ->
       userId: 'an Id'
       qty: 1
       price: 1
+    include("tests/specHelper").clearRequiresAndLogin()
 
   it 'to /api/bids', (done) ->
+    app = include('app').getApp
     request(app).post('/api/bids')
     .send bid
     .expect(201)

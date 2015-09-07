@@ -41,6 +41,7 @@ app.constant('USER',#{JSON.stringify(req.user)})
 app.constant('USER_ID','#{req.user.id}')
 """
 
+module.exports.getApp = app
 server = require('http').Server(app)
 require('./config/socket.io').config(server)
 module.exports.getServer = server

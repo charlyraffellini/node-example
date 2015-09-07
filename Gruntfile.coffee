@@ -31,7 +31,7 @@ module.exports = (grunt) ->
     mochaTest:
       options:
         reporter: "spec"
-      src: ["tests/**/*Spec.coffee"]
+      src: ["tests/mochaSetup.coffee","tests/**/*Spec.coffee"]
 
     coffee:
       compile:

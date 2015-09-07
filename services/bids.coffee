@@ -9,6 +9,6 @@ class BidService extends BaseService
 
   create: (bid) ->
     super bid
-    include('config/socket.io').getIo().emit('new-bid', bid)
+    include('config/socket.io').getIo()?.emit('new-bid', bid)
 
 module.exports = new BidService()
