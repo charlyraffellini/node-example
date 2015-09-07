@@ -25,8 +25,14 @@ app.factory 'PropostaConLimiteDiPrezzoDiVendita', (userApi, propostaConLimiteDiP
     perform: (elem) => #elem = {qty,price}
       userApi.get()
       .then (user) ->
-        return window.alert 'Non ha disponibilità liquide' if(user.wallet.shares < elem.shares)
+        return window.alert 'Non ha disponibilità di lettere' if(user.wallet.shares < elem.shares)
         propostaConLimiteDiPrezzoDiVenditaApi.post(elem)
-      #validate and send a post
-      # elem.userid = USER_ID
-      # @service.create elem
+
+
+app.factory 'PropostaConLimiteDiPrezzoDiAquisito', (userApi, propostaConLimiteDiPrezzoDiAquisitoApi) ->
+  class PropostaConLimiteDiPrezzo
+    perform: (elem) => #elem = {qty,price}
+      userApi.get()
+      .then (user) ->
+        return window.alert 'Non ha disponibilità liquide' if(user.wallet.cash < (elem.shares * elem.price)
+        propostaConLimiteDiPrezzoDiAquisitoApi.post(elem)

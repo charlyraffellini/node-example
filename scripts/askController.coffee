@@ -1,8 +1,8 @@
-app.controller 'askController', ($scope, asks, NgTableParams, $filter, askApi, summaryMaker, PropostaConLimiteDiPrezzo, socket) ->
+app.controller 'askController', ($scope, asks, NgTableParams, $filter, askApi, summaryMaker, PropostaConLimiteDiPrezzoDiAquisito, socket) ->
   $scope.elem = {}
   $scope.asks = asks
   $scope.summary = summaryMaker.makeSummary $scope.asks
-  $scope.propostaConLimiteDiPrezzo = new PropostaConLimiteDiPrezzo(askApi)
+  $scope.propostaConLimiteDiPrezzo = new PropostaConLimiteDiPrezzoDiAquisito()
 
   $scope.performProposta = ->
     $scope.proposta.perform $scope.elem
@@ -27,3 +27,9 @@ app.controller 'askController', ($scope, asks, NgTableParams, $filter, askApi, s
   socket.on('new-ask', (data) ->
     newAsk = data
     $scope.asks.push(newAsk))
+
+  socket.on 'removed-ask', (data) ->
+    removerdAsk = data
+    if !!data
+      index = _.findLastIndex($scope.asks, (e) -> e.id == removerdAsk.id)
+      _.pullAt($scope.asks, index)

@@ -39,3 +39,10 @@ app.factory "propostaConLimiteDiPrezzoDiVenditaApi", ($http, API_URL, BaseApi) -
       @_extractData $http.post("#{API_URL}/conLimiteDiPrezzo/vendita", proposta)
 
   new PropostaConLimiteDiPrezzoDiVenditaApi()
+
+app.factory "propostaConLimiteDiPrezzoDiAquisitoApi", ($http, API_URL, BaseApi) ->
+  class PropostaConLimiteDiPrezzoDiAquisitoApi extends BaseApi
+    post: (proposta) ->
+      @_extractData $http.post("#{API_URL}/conLimiteDiPrezzo/aquisito", proposta)
+
+  new PropostaConLimiteDiPrezzoDiAquisitoApi()

@@ -11,4 +11,10 @@ class AskService extends BaseService
     super ask
     include('config/socket.io').getIo()?.emit('new-ask', ask)
 
+  removeUserWillAsync: (userId) ->
+    super(userId)
+    .then (data) ->
+      include('config/socket.io').getIo()?.emit('removed-ask', data)
+      data
+
 module.exports = new AskService()
