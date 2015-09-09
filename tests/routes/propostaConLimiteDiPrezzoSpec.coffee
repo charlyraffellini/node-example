@@ -4,7 +4,7 @@ include = require 'include'
 request = require 'supertest'
 express = require 'express'
 simple = require 'simple-mock'
-simple.Promise = require('bluebird')
+simple.Promise = require 'bluebird'
 passportStub = require 'passport-stub'
 mock = require 'mock-require'
 
@@ -27,11 +27,11 @@ describe 'Posting', ->
     .send {shares: 999, price: 1}
     .expect(201)
     .end (err, res) ->
+      if err
+        return done(err)
       res.body.should.have.property('id').which.is.a.String()
       res.body.should.have.property('qty').which.is.a.Number()
       res.body.should.have.property('price').which.is.a.Number()
-      if err
-        return done(err)
       done()
 
   it 'POST /api/conLimiteDiPrezzo/aquisito', (done) ->
@@ -39,11 +39,11 @@ describe 'Posting', ->
     .send {shares: 999, price: 2}
     .expect(201)
     .end (err, res) ->
+      if err
+        return done(err)
       res.body.should.have.property('id').which.is.a.String()
       res.body.should.have.property('qty').which.is.a.Number()
       res.body.should.have.property('price').which.is.a.Number()
-      if err
-        return done(err)
       done()
 
   it 'POST /api/conLimiteDiPrezzo/vendita should fail if try to ofer more shares than the user have', (done) ->
@@ -51,9 +51,9 @@ describe 'Posting', ->
     .send {shares: 1001, price: 1}
     .expect(400)
     .end (err, res) ->
-      res.body.should.have.property('error', "Non c'e abaztanzza quantita di shares")
       if err
         return done(err)
+      res.body.should.have.property('error', "Non c'e abaztanzza quantita di shares")
       done()
 
   it 'POST /api/conLimiteDiPrezzo/aquisito should fail if try to ofer more cash than the user have', (done) ->
@@ -61,7 +61,7 @@ describe 'Posting', ->
     .send {shares: 1001, price: 2}
     .expect(400)
     .end (err, res) ->
-      res.body.should.have.property('error', "Non c'e abaztanzza quantita di cash")
       if err
         return done(err)
+      res.body.should.have.property('error', "Non c'e abaztanzza quantita di cash")
       done()

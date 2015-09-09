@@ -31,6 +31,13 @@ module.exports = class BaseService
     user = @getById id
     Promise.resolve user
 
+  remove: (elem) ->
+    _.pull @collection, elem
+
+  removeAsync: (elem) ->
+    @remove elem
+    Promise.resolve()
+
   removeUserWillAsync: (userId) ->
     removed = null
     @collection = _.remove @collection, (elem) ->

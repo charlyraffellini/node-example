@@ -1,20 +1,19 @@
 "use strict"
 
 include = require 'include'
-BaseService = require './baseService'
+SecurityService = require './securityService'
 
-class AskService extends BaseService
+class AskService extends SecurityService
   constructor: ->
     super("#{process.env.PWD}/mocks/ask.json")
 
-  create: (ask) ->
-    super ask
-    include('config/socket.io').getIo()?.emit('new-ask', ask)
+  create: (bid) ->
+    super bid, "ask"
 
   removeUserWillAsync: (userId) ->
-    super(userId)
-    .then (data) ->
-      include('config/socket.io').getIo()?.emit('removed-ask', data)
-      data
+    super userId, "ask"
+
+  update: (ask) ->
+    super(ask, "ask")
 
 module.exports = new AskService()

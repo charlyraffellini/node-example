@@ -5,6 +5,7 @@ asks = include 'services/asks'
 bids = include 'services/bids'
 users = include 'services/users'
 propostaConLimiteDiPrezzoController = include 'controllers/propostaConLimiteDiPrezzo'
+propostaAMercato = include 'controllers/propostaAMercato'
 
 router.get '/asks', (req, res) ->
   allAsks = asks.getAll()
@@ -34,4 +35,6 @@ router.post '/conLimiteDiPrezzo/vendita', (req, res) ->
 router.post '/conLimiteDiPrezzo/aquisito', (req, res) ->
   propostaConLimiteDiPrezzoController.performOffertaDiAquisito(req.user.id, req.body, res)
 
+router.post '/propostaAMercato/vendita', (req, res) ->
+  propostaAMercato.performOffertaDiVendita(req.user.id, req.body, res)
 module.exports = router

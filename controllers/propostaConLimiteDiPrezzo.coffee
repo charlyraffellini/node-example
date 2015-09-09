@@ -18,16 +18,21 @@ class PropostaConLimiteDiPrezzo
       verificaDisponibilita user, offerta
       user
     .then (user) =>
-      elemService.removeUserWillAsync(userId)
-      .then =>
-        elem =
-          userid: userId
-          qty: offerta.shares
-          price: offerta.price
-        elemService.createAsync(elem).then (elem) =>
+      @createOrreplaceUserProposta(userId, offerta, elemService)
+      .then (elem) =>
           res.send 201, elem
     .catch (e) =>
+      console.log e
       res.send(400, {error: e.message || e})
+
+  createOrreplaceUserProposta: (userId, offerta, elemService) ->
+    elemService.removeUserWillAsync(userId)
+    .then =>
+      elem =
+        userid: userId
+        qty: offerta.shares
+        price: offerta.price
+      elemService.createAsync(elem)
 
   _verificaDisponibilitaPerVendere: (user, offerta) ->
     throw new Error("Non c'e abaztanzza quantita di shares") if(user.wallet.shares < offerta.shares)
