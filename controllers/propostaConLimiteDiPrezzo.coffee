@@ -7,11 +7,11 @@ askService = include 'services/asks'
 PropostaBase = require "./propostaBase"
 
 class PropostaConLimiteDiPrezzo extends PropostaBase
-  performOffertaDiVendita: (userId, offerta, res) -> #bid
-    @_perform(userId, offerta, res, @_verificaDisponibilitaPerVendere, bidService)
+  performOffertaDiVendita: (userId, offerta, res) ->
+    @_perform(userId, offerta, res, @_verificaDisponibilitaPerVendere, askService)
 
   performOffertaDiAquisito: (userId, offerta, res) -> #ask
-    @_perform(userId, offerta, res, @_verificaDisponibilitaPerAcquistare, askService)
+    @_perform(userId, offerta, res, @_verificaDisponibilitaPerAcquistare, bidService)
 
   _perform: (userId, offerta, res, verificaDisponibilita, elemService) ->
     userService.getByIdAsync(userId)
