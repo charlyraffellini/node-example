@@ -23,8 +23,7 @@ class PropostaSenzaLimiteDiPrezzo extends PropostaBase
     prezzo = offerta.price
     lettereCheRestano = offerta.shares
     maximumPrice = askService.maximumPrice()
-    console.log maximumPrice
-    while(lettereCheRestano > 0 && prezzo < maximumPrice)
+    while((lettereCheRestano > 0) && (prezzo < maximumPrice))
        lettereCheRestano = @aquisitareLettere(user, prezzo, lettereCheRestano)
        prezzo += 0.01
     res.send 201

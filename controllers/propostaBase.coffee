@@ -30,6 +30,7 @@ class PropostaBase
       differenceDiShares = quantitaDiSharesCheRestano - ask.qty
       if(differenceDiShares >= 0)
         transferedCash = ask.qty * ask.price
+        @_verificaTrasferenza(transferedCash, user.wallet.cash)
         user.wallet.shares += ask.qty
         user.wallet.cash -= transferedCash
         userThatSell = userService.getById ask.userid
@@ -39,6 +40,7 @@ class PropostaBase
         askService.remove ask
       else
         transferedCash = quantitaDiSharesCheRestano * ask.price
+        @_verificaTrasferenza(transferedCash, user.wallet.cash)
         user.wallet.shares += quantitaDiSharesCheRestano
         user.wallet.cash -= transferedCash
         userThatSell = userService.getById ask.userid
@@ -48,6 +50,9 @@ class PropostaBase
         askService.update ask
         quantitaDiSharesCheRestano = 0
     quantitaDiSharesCheRestano
+
+  _verificaTrasferenza: (transferedCash, soldi) ->
+    throw "Non c'e abaztanzza quantita di cash" if (transferedCash > soldi)
 
   vendereLettere: (user, price, quantitaDiSharesCheRestano) ->
     console.log "user: #{JSON.stringify user}"
