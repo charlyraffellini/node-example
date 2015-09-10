@@ -8,8 +8,8 @@
     "surname": "Rossi",
     "email": "mariorossi@example.com",
     "wallet": {
-      "cash": 50.00,
-      "shares": 100
+      "cash": 1000000.00,
+      "shares": 10000000
     }
   },
   {

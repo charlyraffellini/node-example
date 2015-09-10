@@ -6,6 +6,7 @@ bids = include 'services/bids'
 users = include 'services/users'
 propostaConLimiteDiPrezzoController = include 'controllers/propostaConLimiteDiPrezzo'
 propostaAMercato = include 'controllers/propostaAMercato'
+propostaSenzaLimiteDiPrezzo = include 'controllers/propostaSenzaLimiteDiPrezzo'
 
 router.get '/asks', (req, res) ->
   allAsks = asks.getAll()
@@ -37,4 +38,14 @@ router.post '/conLimiteDiPrezzo/aquisito', (req, res) ->
 
 router.post '/propostaAMercato/vendita', (req, res) ->
   propostaAMercato.performOffertaDiVendita(req.user.id, req.body, res)
+
+router.post '/propostaAMercato/aquisito', (req, res) ->
+  propostaAMercato.performOffertaDiAquisito(req.user.id, req.body, res)
+
+router.post '/propostaSenzaLimiteDiPrezzo/vendita', (req, res) ->
+  propostaSenzaLimiteDiPrezzo.performOffertaDiVendita(req.user.id, req.body, res)
+
+router.post '/propostaSenzaLimiteDiPrezzo/aquisito', (req, res) ->
+  propostaSenzaLimiteDiPrezzo.performOffertaDiAquisito(req.user.id, req.body, res)
+
 module.exports = router

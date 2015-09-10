@@ -33,16 +33,32 @@ app.factory "userApi", ($http, API_URL, BaseApi) ->
 
     new UserApi()
 
-app.factory "propostaConLimiteDiPrezzoDiVenditaApi", ($http, API_URL, BaseApi) ->
-  class PropostaConLimiteDiPrezzoDiVenditaApi extends BaseApi
-    post: (proposta) ->
+app.factory "propostaConLimiteDiPrezzoApi", ($http, API_URL, BaseApi) ->
+  class PropostaConLimiteDiPrezzoApi extends BaseApi
+    postVendita: (proposta) ->
       @_extractData $http.post("#{API_URL}/conLimiteDiPrezzo/vendita", proposta)
 
-  new PropostaConLimiteDiPrezzoDiVenditaApi()
-
-app.factory "propostaConLimiteDiPrezzoDiAquisitoApi", ($http, API_URL, BaseApi) ->
-  class PropostaConLimiteDiPrezzoDiAquisitoApi extends BaseApi
-    post: (proposta) ->
+    postAquisito: (proposta) ->
       @_extractData $http.post("#{API_URL}/conLimiteDiPrezzo/aquisito", proposta)
 
-  new PropostaConLimiteDiPrezzoDiAquisitoApi()
+  new PropostaConLimiteDiPrezzoApi()
+
+app.factory "propostaAMercatoApi", ($http, API_URL, BaseApi) ->
+  class PropostaAMercatoApi extends BaseApi
+    postVendita: (proposta) ->
+      @_extractData $http.post("#{API_URL}/propostaAMercato/vendita", proposta)
+
+    postAquisito: (proposta) ->
+      @_extractData $http.post("#{API_URL}/propostaAMercato/aquisito", proposta)
+
+  new PropostaAMercatoApi()
+
+app.factory "propostaSenzaLimiteDiPrezzoApi", ($http, API_URL, BaseApi) ->
+  class PropostaAMercatoApi extends BaseApi
+    postVendita: (proposta) ->
+      @_extractData $http.post("#{API_URL}/propostaSenzaLimiteDiPrezzo/vendita", proposta)
+
+    postAquisito: (proposta) ->
+      @_extractData $http.post("#{API_URL}/propostaSenzaLimiteDiPrezzo/aquisito", proposta)
+
+  new PropostaAMercatoApi()

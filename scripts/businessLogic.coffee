@@ -20,19 +20,64 @@ app.factory "summaryMaker", () ->
 
   new SummaryMaker
 
-app.factory 'PropostaConLimiteDiPrezzoDiVendita', (userApi, propostaConLimiteDiPrezzoDiVenditaApi) ->
-  class PropostaConLimiteDiPrezzo
+app.factory 'PropostaDiVendita', (userApi) ->
+  class PropostaDiVendita
     perform: (elem) => #elem = {qty,price}
       userApi.get()
       .then (user) ->
-        return window.alert 'Non ha disponibilità di lettere' if(user.wallet.shares < elem.shares)
-        propostaConLimiteDiPrezzoDiVenditaApi.post(elem)
+        message = 'Non ha disponibilità di lettere'
+        if(user.wallet.shares < elem.shares)
+          window.alert(message)
+          throw new Error(message)
 
-
-app.factory 'PropostaConLimiteDiPrezzoDiAquisito', (userApi, propostaConLimiteDiPrezzoDiAquisitoApi) ->
-  class PropostaConLimiteDiPrezzo
+app.factory 'PropostaDiAquisito', (userApi) ->
+  class PropostaDiAquisito
     perform: (elem) => #elem = {qty,price}
       userApi.get()
       .then (user) ->
-        return window.alert 'Non ha disponibilità liquide' if(user.wallet.cash < (elem.shares * elem.price)
-        propostaConLimiteDiPrezzoDiAquisitoApi.post(elem)
+        message = 'Non ha disponibilità liquide'
+        if(user.wallet.cash < (elem.shares * elem.price))
+          window.alert(message)
+          throw new Error(message)
+
+app.factory 'PropostaConLimiteDiPrezzoDiVendita', (PropostaDiVendita, propostaConLimiteDiPrezzoApi) ->
+  class PropostaConLimiteDiPrezzoDiVendita extends PropostaDiVendita
+    perform: (elem) => #elem = {qty,price}
+      super(elem)
+      .then () =>
+        propostaConLimiteDiPrezzoApi.postVendita(elem)
+
+app.factory 'PropostaConLimiteDiPrezzoDiAquisito', (PropostaDiAquisito, propostaConLimiteDiPrezzoApi) ->
+  class PropostaConLimiteDiPrezzoDiAquisito extends PropostaDiAquisito
+    perform: (elem) => #elem = {qty,price}
+      super(elem)
+      .then () =>
+        propostaConLimiteDiPrezzoApi.postAquisito(elem)
+
+app.factory 'PropostaAMercatoDiVendita', (PropostaDiVendita, propostaAMercatoApi) ->
+  class PropostaAMercatoDiVendita extends PropostaDiVendita
+    perform: (elem) => #elem = {qty,price}
+      super(elem)
+      .then () =>
+        propostaAMercatoApi.postVendita(elem)
+
+app.factory 'PropostaAMercatoDiAquisito', (PropostaDiAquisito, propostaAMercatoApi) ->
+  class PropostaAMercatoDiAquisito extends PropostaDiAquisito
+    perform: (elem) => #elem = {qty,price}
+      super(elem)
+      .then () =>
+        propostaAMercatoApi.postAquisito(elem)
+
+app.factory 'PropostaSenzaLimiteDiPrezzoDiVendita', (PropostaDiVendita, propostaSenzaLimiteDiPrezzoApi) ->
+  class PropostaAMercatoDiVendita extends PropostaDiVendita
+    perform: (elem) => #elem = {qty,price}
+      super(elem)
+      .then () =>
+        propostaSenzaLimiteDiPrezzoApi.postVendita(elem)
+
+app.factory 'PropostaSenzaLimiteDiPrezzoDiAquisito', (PropostaDiAquisito, propostaSenzaLimiteDiPrezzoApi) ->
+  class PropostaAMercatoDiAquisito extends PropostaDiAquisito
+    perform: (elem) => #elem = {qty,price}
+      super(elem)
+      .then () =>
+        propostaSenzaLimiteDiPrezzoApi.postAquisito(elem)

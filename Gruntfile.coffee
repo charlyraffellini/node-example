@@ -25,7 +25,7 @@ module.exports = (grunt) ->
       dev:
         script: "main.js"
         options:
-          ext: "js,coffee"
+          ext: "js,coffee,json"
 
     # Run tests
     mochaTest:

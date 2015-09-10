@@ -38,7 +38,11 @@ class SecurityService extends BaseService
     _.filter @getAll(), (e) => @_areEqualPrices(price, e.price)
 
   update: (elem, message) ->
-    include('config/socket.io').getIo()?.emit("updated-#{message}", data)
+    include('config/socket.io').getIo()?.emit("updated-#{message}", elem)
+
+  remove: (elem, message) ->
+    _.pull @collection, elem
+    include('config/socket.io').getIo()?.emit("removed-#{message}", elem)
 
   _areEqualPrices: (price, otherPrice) ->
     Math.abs(price - otherPrice) <= 0.01

@@ -1,5 +1,6 @@
 "use strict"
 
+_ = require 'lodash'
 include = require 'include'
 SecurityService = require './securityService'
 
@@ -15,5 +16,14 @@ class AskService extends SecurityService
 
   update: (ask) ->
     super(ask, "ask")
+
+  remove: (ask) ->
+    super ask, "ask"
+
+  maximumPrice: ->
+    _.chain(@collection)
+    .pluck('price')
+    .max()
+    .value()
 
 module.exports = new AskService()

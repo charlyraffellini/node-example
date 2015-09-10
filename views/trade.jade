@@ -1,0 +1,17 @@
+.col-xs-3
+  input.form-control(type='number', placeholder='quantità', ng-model="elem.shares")
+  input.form-control(type='number', placeholder='prezzo', ng-model="elem.price")
+  button.btn.btn-default(type='button', ng-click="performProposta()") Do it!
+.col-xs-9
+  .radio
+  label
+    input(type='radio', name='optionsRadios', ng-model="proposta", ng-value="propostaAMercato")
+    | Proposta senza limite di prezzo, a prezzo di mercato
+  .radio
+  label
+    input(type='radio', name='optionsRadios', ng-model="proposta", ng-value="propostaSenzaLimiteDiPrezzo")
+    | Proposta senza limite di prezzo "esegui comunque" 
+  .radio.disabled
+  label
+    input(type='radio', name='optionsRadios', ng-model="proposta", ng-value="propostaConLimiteDiPrezzo")
+    | Proposta con limite di prezzo

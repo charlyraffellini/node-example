@@ -22,3 +22,9 @@ app.config ($stateProvider, askApiProvider, bidApiProvider) ->
         controller: "bidController"
         resolve:
           bids: -> bidApi.get()
+      sell:
+        templateUrl: "views/trade"
+        controller: "sellController"
+      buy:
+        templateUrl: "views/trade"
+        controller: "buyController"

@@ -14,6 +14,10 @@ class BidService extends SecurityService
   removeUserWillAsync: (userId) ->
     super userId, "bid"
 
+  remove: (bid) ->
+    super bid, "bid"
+
   update: (bid) ->
     super(bid, "bid")
+    
 module.exports = new BidService()

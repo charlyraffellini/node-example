@@ -1,11 +1,7 @@
-app.controller 'askController', ($scope, asks, NgTableParams, $filter, askApi, summaryMaker, PropostaConLimiteDiPrezzoDiAquisito, socket) ->
+app.controller 'askController', ($scope, asks, NgTableParams, $filter, askApi, summaryMaker, socket) ->
   $scope.elem = {}
   $scope.asks = asks
   $scope.summary = summaryMaker.makeSummary $scope.asks
-  $scope.propostaConLimiteDiPrezzo = new PropostaConLimiteDiPrezzoDiAquisito()
-
-  $scope.performProposta = ->
-    $scope.proposta.perform $scope.elem
 
   $scope.tableParams = new NgTableParams
     page: 1
@@ -23,6 +19,26 @@ app.controller 'askController', ($scope, asks, NgTableParams, $filter, askApi, s
     if (newValue != oldValue)
       $scope.summary = summaryMaker.makeSummary $scope.asks
       $scope.tableParams.reload();
+
+
+
+  removeAsk = (removerdAsk) ->
+    if !!removerdAsk
+      index = _.findLastIndex($scope.asks, (e) -> e.id == removerdAsk.id)
+      _.pullAt($scope.asks, index)
+
+  addAsk = (newAsk) ->
+    $scope.asks.push(newAsk)
+
+  socket.on 'new-ask', addAsk
+
+  socket.on 'removed-ask', removeAsk
+
+  socket.on 'updated-ask', (ask) ->
+    removeAsk ask
+    addAsk ask
+
+
 
   socket.on('new-ask', (data) ->
     newAsk = data
