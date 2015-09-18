@@ -3,38 +3,125 @@
     "id": "2500af0",
     "username": "mariorossi",
     "salt": "D8ZHeYzrjcEkyvucKLUS5BDx",
-    "password": "11ccc880434766a7ad0bb58c04134a3ebba6f98a", // sha1 of salt + "paperino"
+    "password": "11ccc880434766a7ad0bb58c04134a3ebba6f98a",
+    "__cleartext_password__not_to_be_used_or_included_in_model__": "paperino",
     "name": "Mario",
     "surname": "Rossi",
     "email": "mariorossi@example.com",
     "wallet": {
-      "cash": 50.00,
-      "shares": 100
+      "cash": 50000.00,
+      "shares": 10000
     }
   },
   {
     "id": "2500af1",
     "username": "antoniomarchesini",
     "salt": "BgWyPUYEfsnjCHHAw2BxXFbY",
-    "password": "1c263384bffecf4c807100c600f6a33ef7eccd6e", // sha1 of salt + "pippo"
+    "password": "1c263384bffecf4c807100c600f6a33ef7eccd6e",
+    "__cleartext_password__not_to_be_used_or_included_in_model__": "pippo",
     "name": "Antonio",
     "surname": "Marchesini",
     "email": "mariorossi@example.com",
     "wallet": {
       "cash": 0.00,
-      "shares": 1000
+      "shares": 100000
     }
   },
   {
     "id": "2500af2",
     "username": "giorgiaventuri",
     "salt": "dyAvbezYcXuKvNxe8B7MX2Fp",
-    "password": "433c3b8670486ad1cdc44a85a2b4e3e941718d14", // sha1 of salt + "minnie"
+    "password": "433c3b8670486ad1cdc44a85a2b4e3e941718d14",
+    "__cleartext_password__not_to_be_used_or_included_in_model__": "minnie",
     "name": "Giorgia",
     "surname": "Venturi",
     "email": "giorgiaventuri@example.com",
     "wallet": {
-      "cash": 5000.00,
+      "cash": 500000.00,
+      "shares": 0
+    }
+  },
+  {
+    "id": "2500af3",
+    "username": "sergiopirazzoli",
+    "salt": "6NWfynkAHp6MgTNqjmKPGBsZ",
+    "password": "160f4600dc324642f963e3c0908ce0b99b0352e1",
+    "__cleartext_password__not_to_be_used_or_included_in_model__": "pluto",
+    "name": "Sergio",
+    "surname": "Pirazzoli",
+    "email": "sergiopirazzoli@example.com",
+    "wallet": {
+      "cash": 0.00,
+      "shares": 0
+    }
+  },
+  {
+    "id": "2500af4",
+    "username": "chiararossetti",
+    "salt": "NX6TwhE7PeEsWdAmrNGRsNxQ",
+    "password": "70b9b9a11b95e76352a03d108ca3be8f1a55b931",
+    "__cleartext_password__not_to_be_used_or_included_in_model__": "paperina",
+    "name": "Chiara",
+    "surname": "Rossetti",
+    "email": "chiararossetti@example.com",
+    "wallet": {
+      "cash": 0.00,
+      "shares": 0
+    }
+  },
+  {
+    "id": "2500af5",
+    "username": "monicaprato",
+    "salt": "VUgjVZyvLAPuvMHCa9XT7zKG",
+    "password": "f39cfd9b4a9c3ee77682b544803a62e02400f89e",
+    "__cleartext_password__not_to_be_used_or_included_in_model__": "topolina",
+    "name": "Monica",
+    "surname": "Prato",
+    "email": "monicaprato@example.com",
+    "wallet": {
+      "cash": 0.00,
+      "shares": 0
+    }
+  },
+  {
+    "id": "2500af6",
+    "username": "andreavalli",
+    "salt": "yyXpBbqA9UvP8mYQgpXftWBX",
+    "password": "6e1cd0c498c5d9df244316d75d34416773a59a96",
+    "__cleartext_password__not_to_be_used_or_included_in_model__": "basettoni",
+    "name": "Andrea",
+    "surname": "Valli",
+    "email": "andreavalli@example.com",
+    "wallet": {
+      "cash": 0.00,
+      "shares": 0
+    }
+  },
+  {
+    "id": "2500af7",
+    "username": "gretacasadei",
+    "salt": "RfrLpKcMeAVn6AR6mrghxNhJ",
+    "password": "ebe126fdb989bbfa6ea819507a8b5f36f950b2c6",
+    "__cleartext_password__not_to_be_used_or_included_in_model__": "trudy",
+    "name": "Greta",
+    "surname": "Casadei",
+    "email": "gretacasadei@example.com",
+    "wallet": {
+      "cash": 0.00,
+      "shares": 0
+    }
+  },
+  {
+    "id": "2500af8",
+    "username": "robertopezzi",
+    "salt": "VxLpGSrLPuLvFDHzG5UGsWA9",
+    "password": "630d4c1164f29c2bf50f66da0f922889ded8bd35",
+    "__cleartext_password__not_to_be_used_or_included_in_model__": "gambadilegno",
+    "name": "Roberto",
+    "surname": "Pezzi",
+    "email": "robertopezzi@example.com",
+    "wallet": {
+      "cash": 0.00,
       "shares": 0
     }
   }
