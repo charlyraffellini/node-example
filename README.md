@@ -1,22 +1,3 @@
-**Init:**
-
-`npm install`
-
-`bower install`
-
-`npm install -g phantom`
-
-`npm install -g karma-cli`
-
-`npm install -g grunt-cli`
-
-**Run:** `grunt`
-
-**Run back-end tests:** `grunt mochaTest`
-
-**Run front-end tests:** `karma start`
-
-
 Il presente repository è utilizzato per la prova di programmazione da parte dei candidati per la posizione aperta di "sviluppatore full stack" presso Kopjra Srl.
 
 Il tempo complessivo stimato per completare la prova è di circa 4 ore.
