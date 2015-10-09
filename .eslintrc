@@ -1,0 +1,13 @@
+{
+  "//": "#Solution of parser: https://medium.com/@dan_abramov/lint-like-it-s-2015-6987d44c5b48",
+  "parser": "babel-eslint",
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "eol-last": [0],
+    "no-mixed-requires": [0],
+    "no-underscore-dangle": [0],
+    "indent": [2, 2, {SwitchCase: 1}]
+  }
+}

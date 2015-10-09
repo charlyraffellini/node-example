@@ -1,3 +1,5 @@
+'use strict';
+
 import React from 'react';
 import Markdown2HTML from 'react-markdown-to-html';
 

@@ -1,11 +1,13 @@
+'use strict';
+
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 
 // presume a json, if a content type has not been explicitely defined by the user
 app.use(function (req, res, next) {
-    req.headers['content-type'] = req.headers['content-type'] || 'application/json';
-    next();
+  req.headers['content-type'] = req.headers['content-type'] || 'application/json';
+  next();
 });
 
 // configure app to use bodyParser()

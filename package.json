@@ -4,9 +4,14 @@
   "description": "Il presente repository è utilizzato per la prova di programmazione da parte dei candidati per la posizione aperta di \"sviluppatore full stack\" presso Kopjra Srl.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --port 3000 --progress --inline --hot --devtool eval-source-map",
-    "server": "nodemon --exec babel-node -- server"
+    "server": "nodemon --exec babel-node -- server",
+    "test": "mocha --compilers js:babel/register --recursive",
+    "test:watch": "npm test -- --watch",
+    "//": "#ES6 coverage with mocha github issue: https://github.com/gotwarlost/istanbul/issues/284",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- --compilers js:babel/register --colors --reporter dot test/ --recursive",
+    "lint": "eslint .",
+    "pretest": "npm run lint"
   },
   "author": "",
   "license": "ISC",
@@ -20,14 +25,21 @@
     "redux-slider-monitor": "^0.5.0"
   },
   "devDependencies": {
+    "babel": "^5.8.23",
     "babel-core": "~5.4.7",
+    "babel-eslint": "^4.1.3",
     "babel-loader": "~5.1.3",
+    "eslint": "^1.6.0",
     "file-loader": "^0.8.4",
+    "istanbul": "^0.3.22",
+    "istanbul-harmony": "^0.3.16",
+    "jshint": "^2.8.0",
+    "mocha": "^2.3.3",
     "redux-devtools": "^1.0.2",
     "style-loader": "^0.12.3",
     "stylus-loader": "^1.2.1",
-    "webpack-dev-server": "~1.9.0",
-    "webpack": "~1.9.10"
+    "webpack": "~1.9.10",
+    "webpack-dev-server": "~1.9.0"
   },
   "private": true
 }

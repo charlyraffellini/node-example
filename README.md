@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/charlyraffellini/node-example.svg)](https://travis-ci.org/charlyraffellini/node-example)
+[![Code Climate](https://codeclimate.com/github/charlyraffellini/node-example/badges/gpa.svg)](https://codeclimate.com/github/charlyraffellini/node-example)
+[![Test Coverage](https://codeclimate.com/github/charlyraffellini/node-example/badges/coverage.svg)](https://codeclimate.com/github/charlyraffellini/node-example/coverage)
+
 Il presente repository è utilizzato per la prova di programmazione da parte dei candidati per la posizione aperta di "sviluppatore full stack" presso Kopjra Srl.
 
 Il tempo complessivo stimato per completare la prova è di circa 4 ore.
