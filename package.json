@@ -1,6 +1,10 @@
 {
   "name": "node-example",
   "version": "0.0.1-alpha",
+  "engines": {
+    "node": "0.12.7",
+    "npm": "2.14.0"
+  },
   "description": "Il presente repository è utilizzato per la prova di programmazione da parte dei candidati per la posizione aperta di \"sviluppatore full stack\" presso Kopjra Srl.",
   "main": "index.js",
   "scripts": {
