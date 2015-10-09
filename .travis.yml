@@ -8,3 +8,4 @@ after_script:
 deploy:
   provider: heroku
   api_key: $HEROKU_AUTH_TOKEN
+  app: fathomless-fortress-7913
