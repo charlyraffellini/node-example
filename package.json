@@ -19,7 +19,7 @@
     "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- --compilers js:babel/register --colors --reporter dot test/ --recursive",
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "postinstall": "bower install"
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "author": "",
   "license": "ISC",
@@ -30,6 +30,7 @@
     "babel-loader": "~5.1.3",
     "body-parser": "^1.14.1",
     "bootstrap": "^3.3.5",
+    "bower": "*",
     "bower-webpack-plugin": "^0.1.9",
     "css-loader": "^0.19.0",
     "es6-promise": "^3.0.2",
