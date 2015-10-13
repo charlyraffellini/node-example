@@ -1,5 +1,5 @@
 require('es6-promise').polyfill();
-require('isomorphic-fetch/node_modules/whatwg-fetch/fetch');
+require('isomorphic-fetch');
 
 export const REQUEST_ORDINI = 'REQUEST_ORDINI';
 export const RECEIVE_ORDINI = 'RECEIVE_ORDINI';
