@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import OrdiniList from './OrdiniList';
 import OrdineForm from './OrdineForm';
 import Users from './Users';
-import { createBid } from './actions';
+import { createBid, changeUser } from './actions';
 
 class App extends React.Component {
   render() {
@@ -45,7 +45,8 @@ class App extends React.Component {
         ordiniType={"asks"}/>
       </span>
       <span>
-        <Users users={users}/>
+        <Users users={users}
+        onChangeUser={ (user) => dispatch(changeUser(user))}/>
       </span>
     </div>;
   }

@@ -10,6 +10,16 @@ export const INVALIDATE_ORDINE = 'INVALIDATE_ORDINE';
 
 export const RECEIVE_USERS = 'RECEIVE_USERS';
 
+export const CHANGE_USER = 'CHANGE_USER';
+
+export function changeUser(user) {
+  return {
+    type: CHANGE_USER,
+    user
+  };
+}
+
+
 export function invalidateOrdini(ordiniType) {
   return {
     type: INVALIDATE_ORDINI,

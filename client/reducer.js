@@ -6,7 +6,8 @@ import {
   RECEIVE_ORDINI,
   CREATE_ORDINE,
   RECEIVE_ORDINE,
-  RECEIVE_USERS} from './actions';
+  RECEIVE_USERS,
+  CHANGE_USER} from './actions';
 
 export function bids(state = {}, action) {
   let functions = new Map();
@@ -46,7 +47,12 @@ export function users(state = [], action) {
 }
 
 export function user(state = {}, action){
-  return state;
+  switch(action.type) {
+    case CHANGE_USER:
+     return action.user;
+    default:
+      return state;
+  }
 }
 
 function requestOrdini(state, action){
