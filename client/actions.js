@@ -37,7 +37,7 @@ function receiveOrdini(ordiniType, json) {
 function fetchOrdini(ordiniType) {
   return dispatch => {
     dispatch(requestOrdini(ordiniType));
-    return fetch(`http://localhost:3000/${ordiniType}`)
+    return fetch(`/${ordiniType}`)
       .then(response => response.json())
       .then(json => dispatch(receiveOrdini(ordiniType, json)))
       .then( () => dispatch(fetchUsers()));
@@ -77,7 +77,7 @@ function createOrdine(ordine) {
 function sendOrdine(ordine) {
   return dispatch => {
     dispatch(createOrdine(ordine));
-    return fetch(`http://localhost:3000/${ordine.ordiniType}`,{
+    return fetch(`/${ordine.ordiniType}`,{
         method: 'post',
         headers: {
           'Accept': 'application/json',
@@ -110,7 +110,7 @@ function receiveUsers(json) {
 
 function fetchAllUsers() {
   return dispatch => {
-    return fetch(`http://localhost:3000/users`)
+    return fetch(`/users`)
       .then(response => response.json())
       .then(json => dispatch(receiveUsers(json)));
   };

@@ -11,7 +11,7 @@ var config = {
   output: {
     filename: '[name].js',
     path: '/build',
-    publicPath: 'http://localhost:3001/build'
+    publicPath: '/build'//http://localhost:3001/build
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -37,5 +37,8 @@ var config = {
     ]
   }
 };
+
+var isProduction = process.env.NODE_ENV === 'production';
+if(!isProduction) config.output.publicPath = 'http://localhost:3001/build';
 
 module.exports = config;
