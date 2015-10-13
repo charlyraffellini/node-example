@@ -9,9 +9,10 @@
   "description": "Il presente repository è utilizzato per la prova di programmazione da parte dei candidati per la posizione aperta di \"sviluppatore full stack\" presso Kopjra Srl.",
   "main": "index.js",
   "scripts": {
-    "start": "npm run server & npm run client",
+    "start": "npm run serve & npm run client",
     "client": "webpack-dev-server --port 3001 --progress --inline --hot --devtool eval-source-map",
     "server": "nodemon --exec babel-node -- server",
+    "serve": "babel-node server",
     "test": "mocha --compilers js:babel/register --recursive",
     "test:watch": "npm test -- --watch",
     "//": "#ES6 coverage with mocha github issue: https://github.com/gotwarlost/istanbul/issues/284",
@@ -45,9 +46,7 @@
     "webpack": "^1.12.2",
     "webpack-dev-server": "~1.9.0",
     "webpack-dev-middleware": "^1.2.0",
-    "webpack-hot-middleware": "^2.4.1"
-  },
-  "devDependencies": {
+    "webpack-hot-middleware": "^2.4.1",
     "babel": "^5.8.23",
     "babel-core": "~5.4.7",
     "babel-eslint": "^4.1.3",
