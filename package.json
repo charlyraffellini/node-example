@@ -1,4 +1,5 @@
 {
+  "//": "#A good post: http://tech.vg.no/2015/01/20/writing-testing-and-publishing-javascript-modules/",
   "name": "node-example",
   "version": "0.0.1-alpha",
   "engines": {
@@ -8,7 +9,8 @@
   "description": "Il presente repository è utilizzato per la prova di programmazione da parte dei candidati per la posizione aperta di \"sviluppatore full stack\" presso Kopjra Srl.",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --port 3000 --progress --inline --hot --devtool eval-source-map",
+    "start": "npm run server & npm run client",
+    "client": "webpack-dev-server --port 3001 --progress --inline --hot --devtool eval-source-map",
     "server": "nodemon --exec babel-node -- server",
     "test": "mocha --compilers js:babel/register --recursive",
     "test:watch": "npm test -- --watch",
@@ -20,13 +22,27 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.13.2",
+    "body-parser": "^1.14.1",
+    "bootstrap": "^3.3.5",
+    "bower-webpack-plugin": "^0.1.9",
+    "css-loader": "^0.19.0",
+    "es6-promise": "^3.0.2",
     "express": "^4.13.1",
+    "file-loader": "^0.8.4",
+    "isomorphic-fetch": "^2.1.1",
+    "json-loader": "^0.5.3",
+    "node-uuid": "^1.4.3",
     "react": "^0.13.3",
     "react-markdown-to-html": "^1.0.11",
     "react-redux": "^1.0.1",
     "redux": "^1.0.0-rc",
-    "redux-slider-monitor": "^0.5.0"
+    "redux-logger": "^2.0.3",
+    "redux-slider-monitor": "^0.5.0",
+    "redux-thunk": "^1.0.0",
+    "style-loader": "^0.12.4",
+    "webpack": "^1.12.2",
+    "webpack-dev-middleware": "^1.2.0",
+    "webpack-hot-middleware": "^2.4.1"
   },
   "devDependencies": {
     "babel": "^5.8.23",

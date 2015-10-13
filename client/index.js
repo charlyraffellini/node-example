@@ -1,15 +1,26 @@
 'use strict';
 
+import "bootstrap";
+import 'bootstrap/dist/css/bootstrap.css';
+
 import 'babel-core/polyfill';
 import './styles.styl';
+import thunkMiddleware from 'redux-thunk';
+import createLogger from 'redux-logger';
 import React from 'react';
 import App from './App';
 import Help from './Help';
-import * as reducers from './reducers';
-import { compose, createStore, combineReducers } from 'redux';
+import { compose, createStore,applyMiddleware } from 'redux';
 import { devTools, persistState } from 'redux-devtools';
 import { Provider } from 'react-redux';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
+import reducer from './reducer'
+
+//let initialAsks = require('../mocks/ask.json');
+//let initialBids = [];//require('../mocks/bid.json');
+let initialUsers = require('../mocks/users.json');
+//remove when apply passport
+let initialUser = initialUsers[0];
 
 const finalCreateStore = compose(
   devTools(),
@@ -17,8 +28,31 @@ const finalCreateStore = compose(
   createStore
 );
 
+const createStoreWithMiddleware = applyMiddleware(
+  thunkMiddleware, // lets us dispatch() functions
+  createLogger() // neat middleware that logs actions
+)(finalCreateStore);
+
+function configureStore(initialState) {
+  const store = createStoreWithMiddleware(reducer, initialState);
+
+  if (module.hot) {
+    // Enable Webpack hot module replacement for reducers
+    module.hot.accept('./reducer', () => {
+      const nextRootReducer = require('./reducer');
+      store.replaceReducer(nextRootReducer);
+    });
+  }
+  return store;
+}
+
+let store = configureStore(
+  { user: initialUser,
+    asks: {isFetching: false, ordini: []},
+    bids: {isFetching: false, ordini: []},
+    users: initialUsers });
+
 let root = document.getElementById('app');
-let store = finalCreateStore(combineReducers(reducers));
 
 React.render(
   <div>
