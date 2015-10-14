@@ -5,9 +5,20 @@ import { connect } from 'react-redux';
 import OrdiniList from './OrdiniList';
 import OrdineForm from './OrdineForm';
 import Users from './Users';
-import { createBid, changeUser } from './actions';
+import { createBid,
+  changeUser,
+  fetchOrdiniIfNeeded,
+  fetchMe } from './actions';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    let { dispatch } = this.props
+    //Setup initial values through actions
+    dispatch(fetchMe());
+    dispatch(fetchOrdiniIfNeeded('bids'));
+    dispatch(fetchOrdiniIfNeeded('asks'));
+  }
   render() {
     let { user, bids, asks, users,
       isFetching, lastUpdated,
