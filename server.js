@@ -6,13 +6,19 @@ import httpProxy from 'http-proxy';
 import http from 'http';
 import fs from 'fs';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import authSetup from './server/auth'
 
 var app = express();
-var publicPath = path.resolve(__dirname, '');
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(session({secret: 'keyboard cat'}));
+authSetup(app);
+
+let publicPath = path.resolve(__dirname, '');
 app.use(express.static(publicPath));
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-
 
 // Bootstrap routes
 var routes_path = __dirname + '/server/routes';

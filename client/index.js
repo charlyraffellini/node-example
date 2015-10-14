@@ -16,11 +16,7 @@ import { Provider } from 'react-redux';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 import reducer from './reducer'
 
-//let initialAsks = require('../mocks/ask.json');
-//let initialBids = [];//require('../mocks/bid.json');
 let initialUsers = require('../mocks/users.json');
-//remove when apply passport
-let initialUser = initialUsers[0];
 
 const finalCreateStore = compose(
   devTools(),
@@ -47,7 +43,7 @@ function configureStore(initialState) {
 }
 
 let store = configureStore(
-  { user: initialUser,
+  { user: {},
     asks: {isFetching: false, ordini: []},
     bids: {isFetching: false, ordini: []},
     users: initialUsers });

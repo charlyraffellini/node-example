@@ -21,6 +21,10 @@ function setup(app) {
   app.get('/users', function(req, res) {
     return res.status(200).send(users);
   });
+  
+  app.get('/me', function(req, res) {
+    return res.status(200).send(req.user);
+  });
 
   app.post('/bids', function(req, res) {
     let bid = req.body;

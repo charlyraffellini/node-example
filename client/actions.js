@@ -47,7 +47,7 @@ function receiveOrdini(ordiniType, json) {
 function fetchOrdini(ordiniType) {
   return dispatch => {
     dispatch(requestOrdini(ordiniType));
-    return fetch(`/${ordiniType}`)
+    return fetch(`/${ordiniType}`, {credentials: 'same-origin'})
       .then(response => response.json())
       .then(json => dispatch(receiveOrdini(ordiniType, json)))
       .then( () => dispatch(fetchUsers()));
@@ -93,6 +93,7 @@ function sendOrdine(ordine) {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
+        credentials: 'same-origin',
         body: JSON.stringify(ordine)
       })
       .then(response => response.json())
@@ -120,7 +121,7 @@ function receiveUsers(json) {
 
 function fetchAllUsers() {
   return dispatch => {
-    return fetch(`/users`)
+    return fetch(`/users`, {credentials: 'same-origin'})
       .then(response => response.json())
       .then(json => dispatch(receiveUsers(json)));
   };
@@ -129,5 +130,21 @@ function fetchAllUsers() {
 export function fetchUsers() {
   return (dispatch, getState) => {
     return dispatch(fetchAllUsers());
+  };
+}
+
+//Fetch me
+
+function fetchMyUser() {
+  return dispatch => {
+    return fetch(`/me`, {credentials: 'same-origin'})
+      .then(response => response.json())
+      .then(json => dispatch(changeUser(json)));
+  };
+}
+
+export function fetchMe() {
+  return (dispatch, getState) => {
+    return dispatch(fetchMyUser());
   };
 }
