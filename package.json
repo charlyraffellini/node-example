@@ -13,10 +13,10 @@
     "client": "webpack-dev-server --port 3001 --progress --inline --hot --devtool eval-source-map",
     "server": "nodemon --exec babel-node -- server",
     "serve": "babel-node server",
-    "test": "mocha --compilers js:babel/register --recursive",
+    "test": "mocha --compilers js:babel/register --recursive \"./test/setup.js\" \"./test/*.test.js\"",
     "test:watch": "npm test -- --watch",
     "//": "#ES6 coverage with mocha github issue: https://github.com/gotwarlost/istanbul/issues/284",
-    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- --compilers js:babel/register --colors --reporter dot test/ --recursive",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- --compilers js:babel/register --colors --reporter dot --recursive \"./test/setup.js\" \"./test/*.test.js\"",
     "lint": "eslint .",
     "pretest": "npm run lint",
     "postinstall": "./node_modules/bower/bin/bower install"
@@ -65,5 +65,10 @@
     "webpack-dev-server": "~1.9.0",
     "webpack-hot-middleware": "^2.4.1"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "expect": "^1.12.2",
+    "nock": "^2.15.0",
+    "timekeeper": "0.0.5"
+  }
 }
