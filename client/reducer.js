@@ -40,7 +40,7 @@ export function asks(state = {}, action) {
 export function users(state = [], action) {
   switch(action.type) {
     case RECEIVE_USERS:
-     return action.users;
+      return action.users;
     default:
       return state;
   }
@@ -49,7 +49,7 @@ export function users(state = [], action) {
 export function user(state = {}, action){
   switch(action.type) {
     case CHANGE_USER:
-     return action.user;
+      return action.user;
     default:
       return state;
   }

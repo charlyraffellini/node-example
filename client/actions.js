@@ -1,6 +1,8 @@
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
+let API_URL = process.env.DEFAULT_API_URL;
+
 export const REQUEST_ORDINI = 'REQUEST_ORDINI';
 export const RECEIVE_ORDINI = 'RECEIVE_ORDINI';
 export const INVALIDATE_ORDINI = 'INVALIDATE_ORDINI';
@@ -47,7 +49,7 @@ function receiveOrdini(ordiniType, json) {
 function fetchOrdini(ordiniType) {
   return dispatch => {
     dispatch(requestOrdini(ordiniType));
-    return fetch(`/${ordiniType}`, {credentials: 'same-origin'})
+    return fetch(`${API_URL}/${ordiniType}`, {credentials: 'same-origin'})
       .then(response => response.json())
       .then(json => dispatch(receiveOrdini(ordiniType, json)))
       .then( () => dispatch(fetchUsers()));
@@ -76,7 +78,7 @@ export function fetchOrdiniIfNeeded(ordiniType) {
   };
 }
 
-//Fetch ordine
+//Create ordine
 function createOrdine(ordine) {
   return {
     type: CREATE_ORDINE,
@@ -87,18 +89,18 @@ function createOrdine(ordine) {
 function sendOrdine(ordine) {
   return dispatch => {
     dispatch(createOrdine(ordine));
-    return fetch(`/${ordine.ordiniType}`,{
-        method: 'post',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        credentials: 'same-origin',
-        body: JSON.stringify(ordine)
-      })
-      .then(response => response.json())
-      .then( () => dispatch(fetchOrdiniIfNeeded(ordine.ordiniType)))
-      .then( () => dispatch(fetchUsers()));
+    return fetch(`${API_URL}/${ordine.ordiniType}`,{
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      credentials: 'same-origin',
+      body: JSON.stringify(ordine)
+    })
+    .then(response => response.json())
+    .then( () => dispatch(fetchOrdiniIfNeeded(ordine.ordiniType)))
+    .then( () => dispatch(fetchUsers()));
   };
 }
 
@@ -121,7 +123,7 @@ function receiveUsers(json) {
 
 function fetchAllUsers() {
   return dispatch => {
-    return fetch(`/users`, {credentials: 'same-origin'})
+    return fetch(`${API_URL}/users`, {credentials: 'same-origin'})
       .then(response => response.json())
       .then(json => dispatch(receiveUsers(json)));
   };
@@ -137,7 +139,7 @@ export function fetchUsers() {
 
 function fetchMyUser() {
   return dispatch => {
-    return fetch(`/me`, {credentials: 'same-origin'})
+    return fetch(`${API_URL}/me`, {credentials: 'same-origin'})
       .then(response => response.json())
       .then(json => dispatch(changeUser(json)));
   };
