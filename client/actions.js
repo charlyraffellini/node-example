@@ -100,6 +100,7 @@ function sendOrdine(ordine) {
     })
     .then(response => response.json())
     .then( () => dispatch(fetchOrdiniIfNeeded(ordine.ordiniType)))
+    .then( () => dispatch(fetchOrdiniIfNeeded(ordine.ordiniType === 'bids' ? 'asks' : 'bids')))
     .then( () => dispatch(fetchUsers()));
   };
 }
