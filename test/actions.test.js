@@ -46,9 +46,12 @@ describe("Action", () =>{
   it("createOrdineAsync() should create a ordine and fetch ordini and users", (done) => {
     let users = [{ "id": "userid" }, { "id": "other userid" }];
     let bids = [{ "id": "bidId" }, { "id": "other bidId" }];
+    let asks = [{ "id": "askId" }, { "id": "other askId" }];
 
     setupNockRequest('http://localhost', '/bids', 'post', {"id": "3000001"});
     setupNockRequest('http://localhost', '/bids', 'get', bids);
+    setupNockRequest('http://localhost', '/users', 'get', users);
+    setupNockRequest('http://localhost', '/asks', 'get', asks);
     setupNockRequest('http://localhost', '/users', 'get', users);
     setupNockRequest('http://localhost', '/users', 'get', users);
 
@@ -57,10 +60,16 @@ describe("Action", () =>{
       { ordiniType: 'bids', type: REQUEST_ORDINI },
       { ordini: bids, ordiniType: 'bids', receivedAt: now, type: RECEIVE_ORDINI },
       { type: RECEIVE_USERS, users, receivedAt: now },
+      { ordiniType: 'asks', type: REQUEST_ORDINI },
+      { ordini: asks, ordiniType: 'asks', receivedAt: now, type: RECEIVE_ORDINI },
+      { type: RECEIVE_USERS, users, receivedAt: now },
       { type: RECEIVE_USERS, users, receivedAt: now }];//TODO Remove this recall
 
     const store = mockStore({ user: {} }, expectedActions, done);
     store.dispatch(createOrdineAsync({ordiniType: 'bids'}))
-      .catch(e => console.log("MOCK STORE ERROR: " + e));
+      .catch(e => {
+        console.log("MOCK STORE ERROR: " + e);
+        done(e);
+      });
   })
 })

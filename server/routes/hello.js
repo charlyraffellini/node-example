@@ -10,18 +10,10 @@ function setup(app) {
     res.send("Hello world!");
   });
 
-  app.get('/bids', function(req, res) {
-    return res.status(200).send(bids);
-  });
+  setRoute(app, 'get', '/bids', 200, bids);
+  setRoute(app, 'get', '/asks', 200, asks);
+  setRoute(app, 'get', '/users', 200, users);
 
-  app.get('/asks', function(req, res) {
-    return res.status(200).send(asks);
-  });
-
-  app.get('/users', function(req, res) {
-    return res.status(200).send(users);
-  });
-  
   app.get('/me', function(req, res) {
     return res.status(200).send(req.user);
   });
@@ -45,6 +37,11 @@ function setup(app) {
 
 export default setup;
 
+function setRoute(app, method, route, statusCode, content){
+  app[method](route, function(req, res) {
+    return res.status(statusCode).send(content);
+  });
+}
 
 function getCollection(path){
   let text = fs.readFileSync(path,'utf8');
@@ -59,12 +56,20 @@ function buyAllThanCan(bid){
     if(a.price <=  bid.price){
       let seller = users.find( u => u.id === a.userid);
       if(a.qty <= bid.qty){
+        if(!validateNegativeCashOrShares(
+          buyer.wallet.cash - a.price * a.qty,
+          seller.wallet.shares - a.qty
+        )) return;
         bid.qty -= a.qty;
         buyer.wallet.cash    -= a.price * a.qty;
         buyer.wallet.shares  += a.qty;
         seller.wallet.cash   += a.price * a.qty;
         seller.wallet.shares -= a.qty;
       } else{
+        if(!validateNegativeCashOrShares(
+          buyer.wallet.cash - a.price * bid.qty,
+          seller.wallet.shares - bid.qty
+        )) return;
         buyer.wallet.cash    -= a.price * bid.qty;
         buyer.wallet.shares  += bid.qty;
         seller.wallet.cash   += a.price * bid.qty;
@@ -86,12 +91,20 @@ function sellAllThanCan(ask){
     if(b.price >=  ask.price){
       let buyer = users.find( u => u.id === b.userid);
       if(b.qty <= ask.qty){
+        if(!validateNegativeCashOrShares(
+          buyer.wallet.cash - b.price * b.qty,
+          seller.wallet.shares - b.qty
+        )) return;
         ask.qty -= b.qty;
         buyer.wallet.cash    -= b.price * b.qty;
         buyer.wallet.shares  += b.qty;
         seller.wallet.cash   += b.price * b.qty;
         seller.wallet.shares -= b.qty;
       } else{
+        if(!validateNegativeCashOrShares(
+          buyer.wallet.cash - b.price * ask.qty,
+          seller.wallet.shares - ask.qty
+        )) return;
         buyer.wallet.cash    -= b.price * ask.qty;
         buyer.wallet.shares  += ask.qty;
         seller.wallet.cash   += b.price * ask.qty;
@@ -102,6 +115,12 @@ function sellAllThanCan(ask){
     }
   });
   bids = bids.filter((b) => b.qty > 0);
+}
+
+function validateNegativeCashOrShares(...args){
+  args.forEach((a) =>{
+    if(a < 0) return false;
+  })
 }
 
 function getNewId(){
