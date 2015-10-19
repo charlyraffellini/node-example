@@ -1,7 +1,7 @@
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
-let API_URL = process.env.DEFAULT_API_URL;
+let API_URL = process.env.DEFAULT_API_URL || '';
 
 export const REQUEST_ORDINI = 'REQUEST_ORDINI';
 export const RECEIVE_ORDINI = 'RECEIVE_ORDINI';
