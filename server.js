@@ -1,10 +1,11 @@
 'use strict';
 
+import http from 'http';
 import httpProxy from 'http-proxy';
 import app from './server.app';
 
 var isProduction = process.env.NODE_ENV === 'production';
-var port = isProduction ? process.env.PORT : 3005;
+var port = isProduction ? process.env.PORT : 3000;
 
 if (!isProduction) {
   let proxy = httpProxy.createProxyServer({
