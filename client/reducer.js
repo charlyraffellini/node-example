@@ -7,7 +7,10 @@ import {
   CREATE_ORDINE,
   RECEIVE_ORDINE,
   RECEIVE_USERS,
-  CHANGE_USER} from './actions';
+  CHANGE_USER,
+  POST_LAST_ERROR,
+  HIDE_ERROR_PANEL
+} from './actions';
 
 export function bids(state = {}, action) {
   let functions = new Map();
@@ -55,6 +58,18 @@ export function user(state = {}, action){
   }
 }
 
+export function error(state = {}, action){
+  switch(action.type) {
+    case POST_LAST_ERROR:
+      return {text: action.text, show: true};
+    case HIDE_ERROR_PANEL:
+      return {text: state.text, show: false}
+    default:
+      return state;
+  }
+
+}
+
 function requestOrdini(state, action){
   return Object.assign({}, state, {
     isFetching: true,
@@ -75,7 +90,8 @@ const reducer = combineReducers({
   asks,
   bids,
   users,
-  user
+  user,
+  error
 });
 
 export default reducer;

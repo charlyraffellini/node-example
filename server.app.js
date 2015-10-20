@@ -9,7 +9,7 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import authSetup from './server/auth'
 
-let app = express();
+var app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(session({secret: 'keyboard cat'}));

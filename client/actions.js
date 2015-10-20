@@ -14,6 +14,22 @@ export const RECEIVE_USERS = 'RECEIVE_USERS';
 
 export const CHANGE_USER = 'CHANGE_USER';
 
+export const POST_LAST_ERROR = 'POST_LAST_ERROR';
+export const HIDE_ERROR_PANEL = 'HIDE_ERROR_PANEL';
+
+export function postLastError(text){
+  return {
+    type: POST_LAST_ERROR,
+    text
+  }
+}
+
+export function hideErrorPanel(){
+  return {
+    type: HIDE_ERROR_PANEL,
+  }
+}
+
 export function changeUser(user) {
   return {
     type: CHANGE_USER,
@@ -99,9 +115,9 @@ function sendOrdine(ordine) {
       body: JSON.stringify(ordine)
     })
     .then(response => response.json())
-    .then( () => dispatch(fetchOrdiniIfNeeded(ordine.ordiniType)))
-    .then( () => dispatch(fetchOrdiniIfNeeded(ordine.ordiniType === 'bids' ? 'asks' : 'bids')))
-    .then( () => dispatch(fetchUsers()));
+    //.then( () => dispatch(fetchOrdiniIfNeeded(ordine.ordiniType)))
+    //.then( () => dispatch(fetchOrdiniIfNeeded(ordine.ordiniType === 'bids' ? 'asks' : 'bids')))
+    //.then( () => dispatch(fetchUsers()));
   };
 }
 
@@ -113,7 +129,6 @@ export function createOrdineAsync(ordine) {
 
 
 //Fetch users
-
 function receiveUsers(json) {
   return {
     type: RECEIVE_USERS,

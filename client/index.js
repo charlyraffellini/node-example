@@ -46,7 +46,10 @@ let store = configureStore(
   { user: {},
     asks: {isFetching: false, ordini: []},
     bids: {isFetching: false, ordini: []},
-    users: initialUsers });
+    users: initialUsers,
+    error: {}
+  }
+);
 
 let root = document.getElementById('app');
 

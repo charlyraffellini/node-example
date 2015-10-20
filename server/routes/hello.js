@@ -1,5 +1,6 @@
 import fs from 'fs';
 import uuid from 'node-uuid';
+import io from '../../server';
 
 let bids = getCollection('./mocks/bid.json');
 let asks = getCollection('./mocks/ask.json');
@@ -24,6 +25,8 @@ function setup(app) {
     buyAllThanCan(bid);
     if(bid.qty > 0) bids.push(bid);
     res.status(201).send(bid);
+
+    io().emit('ordini created');
   });
 
   app.post('/asks', function(req, res) {
@@ -32,6 +35,8 @@ function setup(app) {
     sellAllThanCan(ask);
     if(ask.qty > 0) asks.push(ask);
     res.status(201).send(ask);
+
+    io().emit('ordini created');
   });
 };
 
