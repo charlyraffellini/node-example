@@ -49,21 +49,8 @@ describe("Action", () =>{
     let asks = [{ "id": "askId" }, { "id": "other askId" }];
 
     setupNockRequest('http://localhost', '/bids', 'post', {"id": "3000001"});
-    setupNockRequest('http://localhost', '/bids', 'get', bids);
-    setupNockRequest('http://localhost', '/users', 'get', users);
-    setupNockRequest('http://localhost', '/asks', 'get', asks);
-    setupNockRequest('http://localhost', '/users', 'get', users);
-    setupNockRequest('http://localhost', '/users', 'get', users);
 
-    const expectedActions = [
-      { ordine: {ordiniType: 'bids'}, type: CREATE_ORDINE },
-      { ordiniType: 'bids', type: REQUEST_ORDINI },
-      { ordini: bids, ordiniType: 'bids', receivedAt: now, type: RECEIVE_ORDINI },
-      { type: RECEIVE_USERS, users, receivedAt: now },
-      { ordiniType: 'asks', type: REQUEST_ORDINI },
-      { ordini: asks, ordiniType: 'asks', receivedAt: now, type: RECEIVE_ORDINI },
-      { type: RECEIVE_USERS, users, receivedAt: now },
-      { type: RECEIVE_USERS, users, receivedAt: now }];//TODO Remove this recall
+    const expectedActions = [ { ordine: {ordiniType: 'bids'}, type: CREATE_ORDINE } ];
 
     const store = mockStore({ user: {} }, expectedActions, done);
     store.dispatch(createOrdineAsync({ordiniType: 'bids'}))

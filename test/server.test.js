@@ -17,6 +17,7 @@ describe('Server', () =>{
     mockery.registerMock('node-uuid', {
       v4: () => {return '12345678-12345678-12345678-12345678-12345678';}
     });
+    mockery.registerMock('../../server', () =>{return {emit: () =>{}}});
     app = require('../server.app');
     passport.install(app);
     passport.login({username: "charlyaffellini"});

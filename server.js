@@ -3,6 +3,7 @@
 import http from 'http';
 import httpProxy from 'http-proxy';
 import app from './server.app';
+import io from 'socket.io';
 
 var isProduction = process.env.NODE_ENV === 'production';
 var port = isProduction ? process.env.PORT : 3000;
@@ -17,6 +18,7 @@ if (!isProduction) {
   let forward = (req, res) => proxy.web(req, res, {
     target
   });
+
   app.all('/build/*', forward);
   app.all('/socket.io*', forward);
 
@@ -30,6 +32,7 @@ if (!isProduction) {
     proxy.ws(req, socket, head);
   });
 
+  setupSocketIo(server);
   server.listen(port, () => console.log('Server running on port ' + port));
 
 } else {
@@ -48,5 +51,15 @@ if (!isProduction) {
   });
 
   var server = http.createServer(app);
+  setupSocketIo(server);
   server.listen(port, () => console.log('Server running on port ' + port));
+}
+
+var _io;
+function setupSocketIo(server){
+  _io = io(server);
+}
+
+export default function(){
+  return _io;
 }

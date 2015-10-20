@@ -9,16 +9,20 @@ export default class Ordine extends React.Component {
   }
 
   handleCreate(){
-    const { userid, ordiniType, dispatch } = this.props;
+    const { userid, ordiniType, validateAndDo, dispatch } = this.props;
     const quantityNode = React.findDOMNode(this.refs.quantity);
     const priceNode = React.findDOMNode(this.refs.price);
     const qty = quantityNode.value.trim();
     const price = priceNode.value.trim();
 
     if (qty && price) {
-      dispatch(createOrdineAsync({userid, price, qty, ordiniType}));
-      quantityNode.value = priceNode.value = 0;
-      priceNode.value = priceNode.value = 0;
+      let ordine = {userid, price, qty, ordiniType};
+
+      validateAndDo(ordine, (ordine) =>{
+        dispatch(createOrdineAsync(ordine));
+        quantityNode.value = priceNode.value = 0;
+        priceNode.value = priceNode.value = 0;
+      });
     }
   };
 
