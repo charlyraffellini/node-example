@@ -45,6 +45,7 @@
     "istanbul-harmony": "^0.3.16",
     "jshint": "^2.8.0",
     "json-loader": "^0.5.3",
+    "lodash": "^3.10.1",
     "mocha": "^2.3.3",
     "node-uuid": "^1.4.3",
     "passport": "^0.3.0",
