@@ -66,7 +66,7 @@ class App extends React.Component {
       </div>
       <span className="row">
         <OrdineForm
-        title={"Bid Form"}
+        title={"To Buy"}
         isFetching={isFetching}
         lastUpdated={lastUpdated}
         dispatch={dispatch}
@@ -78,7 +78,7 @@ class App extends React.Component {
           return action(ordine);
         }}/>
         <OrdineForm
-        title={"Ask Form"}
+        title={"To Sell"}
         isFetching={isFetching}
         lastUpdated={lastUpdated}
         dispatch={dispatch}
