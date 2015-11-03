@@ -3,15 +3,15 @@
 import _ from 'lodash';
 
 export function createBid(bid, bids, asks, users){
-  let buyer = users.find( u => u.id === bid.userid);
-  asks.sort( (x, y) => x.price > y.price )
+  let buyer = findUser(bid.userid, users);
+  asks.sort(isPriceHigher)
   .forEach(function(a){
-    if(bid.qty <= 0 || a.price > bid.price) return;
-    let seller = users.find( u => u.id === a.userid);
+    if(bid.qty <= 0 || isPriceHigher(a,bid)) return;
+    let seller = findUser(a.userid, users);
     buyAsk(a, bid, buyer, seller);
   });
 
-  _.remove(asks, (a) => a.qty == 0);
+  removeWhenQuantityIsZero(asks);
 
   if(bid.qty > 0) bids.push(bid);
 
@@ -19,27 +19,48 @@ export function createBid(bid, bids, asks, users){
   reduceCash(buyer, maximumCashThanTheBuyerPays);
 }
 
+export function createAsk(ask, bids, asks, users){
+  let seller = findUser(ask.userid, users);
+  bids.sort(isPriceLower)
+  .forEach(function(b){
+    if(ask.qty <= 0 || isPriceLower(b,ask)) return;
+    let buyer = findUser(b.userid, users);
+    sellBid(b, ask, buyer, seller);
+  });
 
+  removeWhenQuantityIsZero(bids);
+  if(ask.qty > 0) asks.push(ask);
 
-
-
-
-function buyAsk(ask, bid, buyer, seller){
-  let qty = bid.qty > ask.qty ? ask.qty : bid.qty;
-
-  let totalValue = ask.price * qty;
-
-  addShares(buyer, qty);
-  reduceCash(buyer, totalValue);
-
-  reduceShares(seller, qty);
-  addCash(seller, totalValue);
-
-  ask.qty -= qty;
-  bid.qty -= qty;
+  reduceShares(seller, ask.qty);
 }
 
 
+
+function sellBid(bid, ask, buyer, seller){
+  let qty = ask.qty > bid.qty ? bid.qty : ask.qty;
+  let totalValue = bid.price * qty;
+
+  doTransaction(qty, totalValue, seller, buyer);
+
+  reduceAskAndBidInAQuantity(ask,bid,qty);
+}
+
+function buyAsk(ask, bid, buyer, seller){
+  let qty = bid.qty > ask.qty ? ask.qty : bid.qty;
+  let totalValue = bid.price * qty;
+
+  doTransaction(qty, totalValue, seller, buyer);
+
+  reduceAskAndBidInAQuantity(ask,bid,qty)
+}
+
+function doTransaction(shares, cash, seller, buyer){
+  addShares(buyer, shares);
+  reduceCash(buyer, cash);
+
+  reduceShares(seller, shares);
+  addCash(seller, cash);
+}
 
 
 
@@ -57,4 +78,25 @@ function reduceShares(seller, qty){
 
 function addCash(seller, cash){
   seller.wallet.cash += cash;
+}
+
+function isPriceLower(x, y){
+  return x.price < y.price
+}
+
+function isPriceHigher(x, y){
+  return x.price > y.price
+}
+
+function findUser(userid, users){
+  return users.find( u => u.id === userid);
+}
+
+function removeWhenQuantityIsZero(elems){
+  _.remove(elems, (e) => e.qty == 0);
+}
+
+function reduceAskAndBidInAQuantity(ask, bid, qty){
+  ask.qty -= qty;
+  bid.qty -= qty;
 }
